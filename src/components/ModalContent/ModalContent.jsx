@@ -9,14 +9,20 @@ import {
 } from "react-native";
 import data from "../../data/products";
 import Modal from "react-native-modal";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../../Redux/shopping-slice";
 
 const deviceSize = Dimensions.get("window");
 
 const ModalContent = ({ itemId, onClose, visible }) => {
   const useData = data.find((item) => item.id === itemId);
+  const dispach = useDispatch();
+
+  const handleAddToCard = () => {
+    dispach(addCartItem({ product: useData }));
+  };
 
   if (!useData) {
-    // If useData is not defined, handle it accordingly (e.g., show an error message).
     return (
       <Modal
         style={styles.modal}
@@ -54,7 +60,7 @@ const ModalContent = ({ itemId, onClose, visible }) => {
         </View>
         <TouchableOpacity
           style={styles.addToCard}
-          onPress={() => console.log("Add to Cart")}
+          onPress={() => handleAddToCard()}
         >
           <Text style={styles.addToCardText}>Add to Cart</Text>
         </TouchableOpacity>

@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './src/screens/home';
 import ShoppingScreen from './src/screens/Shopping';
+import { Provider } from 'react-redux';
+import { store } from './store'; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -17,6 +19,7 @@ const HomeStackScreen = () => (
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -41,5 +44,6 @@ export default function App() {
         <Tab.Screen name="Shopping" component={ShoppingScreen} options={{headerTitleStyle:{color:'tomato'}}}/>
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
