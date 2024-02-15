@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import data from "../data/products";
+import ModalContent from "../components/ModalContent/ModalContent";
 
-const FoodCard = ({ item }) => {
+const FoodCard = ({ item, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <Image
+          source={{ uri: item.image }}
           style={styles.image}
-          source={require("../data/defaultPizza.png")}
           onError={(error) =>
             console.log("Görsel yüklenirken hata oluştu:", error)
           }
@@ -17,7 +18,7 @@ const FoodCard = ({ item }) => {
         <View style={styles.body_container}>
           <Text style={styles.title}>{item.name}</Text>
           <View style={styles.innercontainer}>
-            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.price}>{item.price} $</Text>
           </View>
         </View>
       </View>
@@ -26,14 +27,36 @@ const FoodCard = ({ item }) => {
 };
 
 const Home = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
+  const handleItem = (id) => {
+    setSelectedItemId(id);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
-    <FlashList
-      data={data}
-      renderItem={({ item }) => <FoodCard item={item} />}
-      estimatedItemSize={200}
-      numColumns={2}
-      keyExtractor={(item) => item.id.toString()}
-    />
+    <View style={{ flex: 1 }}>
+      <FlashList
+        data={data}
+        renderItem={({ item }) => (
+          <FoodCard item={item} onPress={() => handleItem(item.id)} />
+        )}
+        estimatedItemSize={200}
+        numColumns={2}
+        keyExtractor={(item) => item.id.toString()}
+      />
+
+      <ModalContent
+        itemId={selectedItemId}
+        onClose={closeModal}
+        visible={modalVisible}
+      />
+    </View>
   );
 };
 
@@ -46,16 +69,16 @@ const styles = StyleSheet.create({
     borderColor: "#bdbdbd",
     margin: 7,
     marginTop: 12,
+    minHeight: 295,
     marginBottom: 0,
     backgroundColor: "#f0f0f0f0",
     borderRadius: 20,
   },
   image: {
-    maxWidth: "100%",
+    width: "100%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     aspectRatio: 1,
-    borderRadius: 20,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
     backgroundColor: "white",
     resizeMode: "contain",
   },
