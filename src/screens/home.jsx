@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import data from "../data/products";
 import ModalContent from "../components/ModalContent/ModalContent";
+import { LinearGradient } from "expo-linear-gradient";
 
 const FoodCard = ({ item, onPress }) => {
   return (
@@ -40,23 +41,28 @@ const Home = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <FlashList
-        data={data}
-        renderItem={({ item }) => (
-          <FoodCard item={item} onPress={() => handleItem(item.id)} />
-        )}
-        estimatedItemSize={200}
-        numColumns={2}
-        keyExtractor={(item) => item.id.toString()}
-      />
+    <LinearGradient
+      colors={["#FFA500", "#FFB600", "#FFD700"]}
+      style={{ flex: 1 }}
+    >
+      <View style={{ flex: 1 }}>
+        <FlashList
+          data={data}
+          renderItem={({ item }) => (
+            <FoodCard item={item} onPress={() => handleItem(item.id)} />
+          )}
+          estimatedItemSize={200}
+          numColumns={2}
+          keyExtractor={(item) => item.id.toString()}
+        />
 
-      <ModalContent
-        itemId={selectedItemId}
-        onClose={closeModal}
-        visible={modalVisible}
-      />
-    </View>
+        <ModalContent
+          itemId={selectedItemId}
+          onClose={closeModal}
+          visible={modalVisible}
+        />
+      </View>
+    </LinearGradient>
   );
 };
 
@@ -65,7 +71,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#bdbdbd",
     margin: 7,
     marginTop: 12,

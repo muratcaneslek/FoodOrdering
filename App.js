@@ -41,7 +41,7 @@ export default function App() {
         })}
       >
          <Tab.Screen name="HomePage" component={HomeStackScreen} options={{ headerTitle: 'Pizzas', headerTintColor: 'tomato' }} />
-        <Tab.Screen name="Shopping" component={ShoppingScreen} options={{headerTitleStyle:{color:'tomato'}}}/>
+        <Tab.Screen name="Shopping" component={ShoppingScreen} options={{headerTitle: 'Pizzas',headerTitleStyle:{color:'tomato'}}}/>
       </Tab.Navigator>
     </NavigationContainer>
     </Provider>
