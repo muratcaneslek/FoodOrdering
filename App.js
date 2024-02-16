@@ -1,6 +1,6 @@
 import React from 'react';
-import { NetInfoProvider } from './src/components/NetInfo/NetInfo'; // Yolunuza göre düzenleyin
-import MainNavigator from './src/MainNavigator'; // Yolunuza göre düzenleyin
+import { NetInfoProvider } from './src/components/NetInfo/NetInfo';
+import MainNavigator from './src/MainNavigator'; 
 
 const App = () => {
   return (
