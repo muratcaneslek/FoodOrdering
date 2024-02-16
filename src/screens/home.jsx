@@ -4,6 +4,7 @@ import { FlashList } from "@shopify/flash-list";
 import data from "../data/products";
 import ModalContent from "../components/ModalContent/ModalContent";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNetInfo } from "../components/NetInfo/NetInfo";
 
 const FoodCard = ({ item, onPress }) => {
   return (
